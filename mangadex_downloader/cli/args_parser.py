@@ -116,6 +116,11 @@ def get_args(argv):
         default=config.path
     )
     parser.add_argument(
+        '--folder-name',
+        '-fn',
+        help='Store manga with a given folder-name'
+    )
+    parser.add_argument(
         '--replace',
         '-r',
         help='Replace manga if exist',

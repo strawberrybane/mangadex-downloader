@@ -48,11 +48,13 @@ def download(
     no_oneshot_chapter=False,
     use_alt_details=False,
     groups=None,
+    folder_name=None,
     _range=None,
 ):
     """Download a manga"""
     save_as = config.save_as
     cover = config.cover
+    folder_name = config.folder_name
 
     lang = get_language(config.language)
 
@@ -79,8 +81,11 @@ def download(
         log.info("Fetching all chapters...")
         manga.fetch_chapters(lang.value, all_chapters=True)
 
-    # Create folder for downloading
-    base_path = create_directory(manga.title, config.path)
+    # Create folder for downloading, use supplied name if it was set
+    if folder_name:
+        base_path = create_directory(folder_name, config.path)
+    else:
+        base_path = create_directory(manga.title, config.path)
 
     # Cover path
     cover_path = base_path / 'cover.jpg'
@@ -176,6 +181,7 @@ def download_chapter(
     replace=False,
     start_page=None,
     end_page=None,
+    folder_name=None,
 ):
     """Download a chapter"""
     save_as = config.save_as
@@ -188,8 +194,11 @@ def download_chapter(
 
     log.info(f'Found chapter {chap.chapter} from manga "{manga.title}"')
 
-    # Create folder for downloading
-    base_path = create_directory(manga.title, config.path)
+    # Create folder for downloading, use supplied name if it was set
+    if folder_name:
+        base_path = create_directory(folder_name, config.path)
+    else:
+        base_path = create_directory(manga.title, config.path)
     log.info(f'Download directory is set to "{base_path.resolve()}"')
 
     kwargs_iter_chapter_images = {
@@ -218,6 +227,7 @@ def download_list(
     list_id,
     replace=False,
     groups=None,
+    folder_name=None,
 ):
     """Download a list"""
     _list = MangaDexList(_id=list_id)
@@ -226,6 +236,7 @@ def download_list(
         download(
             manga.id,
             replace,
+            folder_name,
             groups=groups,
         )
 

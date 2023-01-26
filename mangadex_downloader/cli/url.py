@@ -96,6 +96,7 @@ def download_manga(url, args, legacy=False):
         args.use_alt_details,
         args.group,
         args.range,
+        args.folder_name,
     )
 
     if legacy:
