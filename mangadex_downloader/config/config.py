@@ -79,6 +79,10 @@ class _Config:
             "./",
             dummy_validator
         ],
+        "folder_name": [
+            False,
+            dummy_validator
+        ],        
         "dns_over_https": [
             None,
             lambda x: validate_value_from_iterator(x, _doh_providers)
